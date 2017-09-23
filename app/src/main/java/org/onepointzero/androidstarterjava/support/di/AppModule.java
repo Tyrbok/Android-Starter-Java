@@ -2,6 +2,7 @@ package org.onepointzero.androidstarterjava.support.di;
 
 import android.content.Context;
 
+import org.onepointzero.androidstarterjava.application.GetStarterData;
 import org.onepointzero.androidstarterjava.application.MainPresenter;
 import org.onepointzero.androidstarterjava.domain.StarterDataRepository;
 import org.onepointzero.androidstarterjava.infraestructure.DummyStarterDataRepository;
@@ -22,12 +23,17 @@ public class AppModule {
     }
 
     @Provides
-    MainPresenter mainPresenter(StarterDataRepository starterDataRepository) {
-        return new MainPresenter(starterDataRepository);
+    MainPresenter mainPresenter(GetStarterData getStarterData) {
+        return new MainPresenter(getStarterData);
     }
 
     @Provides
     StarterDataRepository starterDataRepository() {
         return new DummyStarterDataRepository(context);
+    }
+
+    @Provides
+    GetStarterData getStarterData(StarterDataRepository starterDataRepository) {
+        return new GetStarterData(starterDataRepository);
     }
 }

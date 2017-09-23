@@ -1,23 +1,24 @@
 package org.onepointzero.androidstarterjava.application;
 
-import org.onepointzero.androidstarterjava.domain.StarterData;
-import org.onepointzero.androidstarterjava.domain.StarterDataRepository;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainPresenter {
+    private final GetStarterData getStarterData;
     private MainScreen screen;
 
-    private StarterDataRepository starterDataRepository;
-
-    public MainPresenter(StarterDataRepository starterDataRepository) {
-        this.starterDataRepository = starterDataRepository;
+    public MainPresenter(GetStarterData getStarterData) {
+        this.getStarterData = getStarterData;
     }
 
-    public void bind(MainScreen screen) {
+    void bind(MainScreen screen) {
         this.screen = screen;
 
-        starterDataRepository
-                .getStarterData()
-                .map(StarterData::getMessage)
+        getStarterData.execute()
+
+                .observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+
                 .subscribe(screen::showLabel);
     }
 }
