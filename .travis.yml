@@ -82,11 +82,12 @@ install:
 before_script:
   - echo no | android create avd --force --name test -k "$EMULATOR"
   
-  #- emulator -avd test -no-skin -no-audio -no-window &
-  #- android-wait-for-emulator
-  
   - emulator -avd acib -engine classic -no-window -camera-back none -camera-front none -verbose -qemu -m 512 &
-  - adb wait-for-device get-serialno
+
+  #- emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  
+  #- adb wait-for-device get-serialno
 
   - adb devices   #Display list of devices
   - adb shell input keyevent 82 &
