@@ -75,6 +75,7 @@ install:
   - ./gradlew --version
   # Clean project and download missing dependencies and components
   #- cd ${TRAVIS_BUILD_DIR}/${DIR} && ./gradlew clean build
+  - ls /usr/local/
   - ./gradlew clean build
   # Check components status
   # - sdkmanager --list || true
