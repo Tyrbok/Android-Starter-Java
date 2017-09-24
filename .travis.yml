@@ -92,8 +92,7 @@ before_script:
 
 script:
   # Run all device checks
-  #- cd ${TRAVIS_BUILD_DIR}/${DIR} && ./gradlew connectedCheck
-  - ./gradlew connectedCheck
+  - ./gradlew clean test assemble
 
 after_script:
   # Show tests and lint results
