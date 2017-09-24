@@ -22,6 +22,8 @@ android:
     - platform-tools # Update platform-tools to revision 25.0.3+
     - tools # Update tools from revision 24.4.1 to 25.2.5
     
+    - android-26
+    
     # Additional components
     - extra-google-google_play_services
     - extra-google-m2repository
@@ -64,8 +66,8 @@ install:
   # - sdkmanager --list || true
   # Update sdk tools to latest version and install/update components
   - echo y | sdkmanager "tools"
-  - echo y | sdkmanager "platforms;android-26" # Latest platform required by SDK tools
-  - echo y | sdkmanager "platforms;android-${API}" # Android platform required by emulator
+  #- echo y | sdkmanager "platforms;android-26" # Latest platform required by SDK tools
+  #- echo y | sdkmanager "platforms;android-${API}" # Android platform required by emulator
   - echo y | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
   - echo y | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
   - echo y | sdkmanager "$EMULATOR" # Install emulator system image
@@ -95,7 +97,7 @@ before_script:
 
 script:
   # Run all device checks
-  - ./gradlew clean test assemble
+  - ./gradlew clean test assemble connectedCheck
 
 after_script:
   # Show tests and lint results
