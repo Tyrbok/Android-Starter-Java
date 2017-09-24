@@ -49,6 +49,7 @@ android:
 
   matrix:
     include: # More Emulator API levels to build in parallel
+      - env: API=26
       - env: API=25
       - env: API=24
       - env: API=23
