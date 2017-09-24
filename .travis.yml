@@ -75,33 +75,26 @@ install:
   - echo y | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
   - echo y | sdkmanager "$EMULATOR" # Install emulator system image
 
-# Create and start emulator
-  #- echo no | avdmanager create avd -n acib -k "$EMULATOR" -f --abi "$ABI" --tag "$TAG"
-  #- emulator -avd acib -engine classic -no-window -camera-back none -camera-front none -verbose -qemu -m 512 &
-  # Start adbd, wait for device connected and show android serial
-  #- adb wait-for-device get-serialno
-  # Show version and download Gradle Wrapper if it's not already cached
-  # - ./gradlew --version
-  # Clean project and download missing dependencies and components
   #- ls /usr/local/
-  # - ./gradlew clean build
-  # Check components status
   #- sdkmanager --list || true
   #- ls -l
 
 before_script:
   - echo no | android create avd --force --name test -k "$EMULATOR"
-  - emulator -avd test -no-skin -no-audio -no-window &
+  
+  #- emulator -avd test -no-skin -no-audio -no-window &
+  #- android-wait-for-emulator
+  
+  - emulator -avd acib -engine classic -no-window -camera-back none -camera-front none -verbose -qemu -m 512 &
+  - adb wait-for-device get-serialno
+
+  - adb devices   #Display list of devices
+  - adb shell input keyevent 82 &
 
 script:
   # Run all device checks
   #- ./gradlew clean test assemble connectedCheck
   #- ./gradlew clean test
-  - echo "Travis branch is $TRAVIS_BRANCH"
-  - echo "Travis branch is in pull request $TRAVIS_PULL+REQUEST"
-  - android-wait-for-emulator
-  - adb devices   #Display list of devices
-  - adb shell input keyevent 82 &
   - ./gradlew connectedCheck -PdisablePreDex --stacktrace
 
 after_script:
