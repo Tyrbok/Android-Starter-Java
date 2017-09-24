@@ -27,6 +27,9 @@ android:
     - extra-google-m2repository
     - extra-android-m2repository
     - addon-google_apis-google-19
+   
+    - sys-img-armeabi-v7a-android-22
+    - sys-img-armeabi-v7a-android-17
 
 env:
   global:
@@ -66,13 +69,13 @@ install:
   - echo y | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
   - echo y | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
   - echo y | sdkmanager "$EMULATOR" # Install emulator system image
-  # Create and start emulator
-  #- echo no | avdmanager create avd -n acib -k "$EMULATOR" -f --abi "$ABI" --tag "$TAG"
-  #- emulator -avd acib -engine classic -no-window -camera-back none -camera-front none -verbose -qemu -m 512 &
+
+# Create and start emulator
+  - echo no | avdmanager create avd -n acib -k "$EMULATOR" -f --abi "$ABI" --tag "$TAG"
+  - emulator -avd acib -engine classic -no-window -camera-back none -camera-front none -verbose -qemu -m 512 &
   # Start adbd, wait for device connected and show android serial
-  #- adb wait-for-device get-serialno
+  - adb wait-for-device get-serialno
   # Show version and download Gradle Wrapper if it's not already cached
-  #- cd ${TRAVIS_BUILD_DIR}/${DIR} && ./gradlew --version
   # - ./gradlew --version
   # Clean project and download missing dependencies and components
   - ls /usr/local/
