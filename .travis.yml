@@ -52,7 +52,8 @@ env:
 #  fast_finish: false
 
 before_install:
-  - export EMULATOR="system-images;android-${API};${TAG};${ABI}" # Used to install/create emulator
+  #- export EMULATOR="system-images;android-${API};${TAG};${ABI}" # Used to install/create emulator
+  - export EMULATOR="system-images;android-25;${TAG};${ABI}" # Used to install/create emulator
   - echo 'count=0' > /home/travis/.android/repositories.cfg # Avoid warning
 
 install:
