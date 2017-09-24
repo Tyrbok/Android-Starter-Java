@@ -73,10 +73,10 @@ install:
   - echo y | sdkmanager "$EMULATOR" # Install emulator system image
 
 # Create and start emulator
-  - echo no | avdmanager create avd -n acib -k "$EMULATOR" -f --abi "$ABI" --tag "$TAG"
-  - emulator -avd acib -engine classic -no-window -camera-back none -camera-front none -verbose -qemu -m 512 &
+  #- echo no | avdmanager create avd -n acib -k "$EMULATOR" -f --abi "$ABI" --tag "$TAG"
+  #- emulator -avd acib -engine classic -no-window -camera-back none -camera-front none -verbose -qemu -m 512 &
   # Start adbd, wait for device connected and show android serial
-  - adb wait-for-device get-serialno
+  #- adb wait-for-device get-serialno
   # Show version and download Gradle Wrapper if it's not already cached
   # - ./gradlew --version
   # Clean project and download missing dependencies and components
@@ -87,13 +87,10 @@ install:
   - ls -l
 
 before_script:
-  # Wait for emulator fully-booted and disable animations
-  #- android-wait-for-emulator
-  #- adb shell settings put global window_animation_scale 0 &
-  #- adb shell settings put global transition_animation_scale 0 &
-  #- adb shell settings put global animator_duration_scale 0 &
-  #- sleep 30
-  #- adb shell input keyevent 82 &
+  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
 
 script:
   # Run all device checks
