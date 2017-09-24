@@ -97,7 +97,8 @@ before_script:
 
 script:
   # Run all device checks
-  - ./gradlew clean test assemble connectedCheck
+  #- ./gradlew clean test assemble connectedCheck
+  - ./gradlew clean test
 
 after_script:
   # Show tests and lint results
