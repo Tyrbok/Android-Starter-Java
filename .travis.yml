@@ -60,6 +60,9 @@ before_install:
   #- export EMULATOR="system-images;android-${API};${TAG};${ABI}" # Used to install/create emulator
   - export EMULATOR="system-images;android-25;${TAG};${ABI}" # Used to install/create emulator
   - echo 'count=0' > /home/travis/.android/repositories.cfg # Avoid warning
+  
+  - pip install --user codecov    #Install codecov
+
 
 install:
   # List and delete unnecessary components to free space
@@ -101,3 +104,8 @@ after_script:
   # Show tests and lint results
   - cat ${TRAVIS_BUILD_DIR}/${DIR}/*/build/outputs/androidTest-results/connected/*
   - cat ${TRAVIS_BUILD_DIR}/${DIR}/*/build/reports/lint-results.xml
+  
+after_success:
+  - codecov                       #Run codecov
+
+after_failure: "cat $TRAVIS_BUILD_DIR/app/build/outputs/lint-results-debug.xml"
