@@ -82,6 +82,7 @@ install:
 before_script:
   - echo no | android create avd --force --name test -k "$EMULATOR"
   
+  - emulator -list-avds
   - emulator -avd acib -engine classic -no-window -camera-back none -camera-front none -verbose -qemu -m 512 &
 
   #- emulator -avd test -no-skin -no-audio -no-window &
