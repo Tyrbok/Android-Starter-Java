@@ -24,6 +24,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    adbOptions {
+        timeOutInMs 10 * 60 * 1000  // Set the timeout to 10 minutes
+        installOptions "-d","-t"
+    }
 }
 
 ext {
