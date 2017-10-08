@@ -1,11 +1,10 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.github.ben-manes.versions'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "org.onepointzero.androidstarterjava"
         minSdkVersion 17
@@ -61,8 +60,8 @@ dependencies {
 
     compile "com.jakewharton:butterknife:$butterknifeVersion"
 
-    apt "com.google.dagger:dagger-compiler:$daggerVersion"
-    apt "com.jakewharton:butterknife-compiler:$butterknifeVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknifeVersion"
 
     provided 'org.glassfish:javax.annotation:10.0-b28'
     retrolambdaConfig "net.orfjackal.retrolambda:retrolambda:$retrolambdaVersion"
