@@ -16,9 +16,10 @@ public class MainPresenter {
 
         getStarterData.execute()
 
-                .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
 
-                .subscribe(screen::showLabel);
+                .subscribe(screen::showLabel)
+                .dispose();
     }
 }
